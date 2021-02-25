@@ -1,7 +1,7 @@
 import { TypeOrmModule } from "@nestjs/typeorm";//npm install --save @nestjs/typeorm typeorm mysql
 import { ConfigModule } from "@nestjs/config";//npm i --save @nestjs/config
 import { ConfigModuleOptions } from '@nestjs/config/dist/interfaces';
-import * as ip from 'ip';//npm i -D @types/ip   npm i --save ip
+import  ip from 'ip';//npm i -D @types/ip   npm i --save ip
 
 const isHome = /^192.168.31./.test(ip.address());
 console.log('当前ip:',ip.address(),isHome?'是线上环境':'是线下环境');
