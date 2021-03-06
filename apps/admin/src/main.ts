@@ -2,6 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import helmet from 'helmet';
+import { Logger } from '@app/logger';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -12,6 +13,10 @@ async function bootstrap() {
   // 安全防御中间件 npm i --save helmet
   // app.use(helmet());
   app.use(helmet({ contentSecurityPolicy: false }));
+
+  // 日志 new Logger(fileName)
+  const logger = new Logger(process.env.LOG_PATH);
+  app.useLogger(logger)
 
   // swagger 接口文档 npm install --save @nestjs/swagger swagger-ui-express
   const options = new DocumentBuilder()
@@ -26,7 +31,10 @@ async function bootstrap() {
   await app.listen(3000);
   console.log(`
     Starting development server at http://localhost:3000/
+    Swagger at http://localhost:3000/swagger
     Quit the server with CONTROL-C.
   `);
+
+  logger.log(' Starting development server at',`http://localhost:3000/${process.env.SERVE_PORT}`);
 }
 bootstrap();

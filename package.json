@@ -31,6 +31,7 @@
     "@nestjs/typeorm": "^7.1.5",
     "helmet": "^4.4.1",
     "ip": "^1.1.5",
+    "log4js": "^6.3.0",
     "mysql": "^2.18.1",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
@@ -45,6 +46,7 @@
     "@types/express": "^4.17.3",
     "@types/ip": "^1.1.0",
     "@types/jest": "26.0.10",
+    "@types/log4js": "^2.3.5",
     "@types/node": "^13.9.1",
     "@types/supertest": "^2.0.8",
     "@typescript-eslint/eslint-plugin": "3.9.1",
@@ -76,8 +78,13 @@
     "coverageDirectory": "./coverage",
     "testEnvironment": "node",
     "roots": [
-      "<rootDir>/apps/"
-    ]
+      "<rootDir>/apps/",
+      "<rootDir>/libs/"
+    ],
+    "moduleNameMapper": {
+      "@app/logger/(.*)": "<rootDir>/libs/logger/src/$1",
+      "@app/logger": "<rootDir>/libs/logger/src"
+    }
   },
   "config": {
     "commitizen": {
