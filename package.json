@@ -83,7 +83,9 @@
     ],
     "moduleNameMapper": {
       "@app/logger/(.*)": "<rootDir>/libs/logger/src/$1",
-      "@app/logger": "<rootDir>/libs/logger/src"
+      "@app/logger": "<rootDir>/libs/logger/src",
+      "@app/middleware/(.*)": "<rootDir>/libs/middleware/src/$1",
+      "@app/middleware": "<rootDir>/libs/middleware/src"
     }
   },
   "config": {

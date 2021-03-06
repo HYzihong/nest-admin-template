@@ -18,6 +18,12 @@
       ],
       "@app/logger/*": [
         "libs/logger/src/*"
+      ],
+      "@app/middleware": [
+        "libs/middleware/src"
+      ],
+      "@app/middleware/*": [
+        "libs/middleware/src/*"
       ]
     }
   }

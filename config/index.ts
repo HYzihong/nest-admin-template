@@ -1,10 +1,18 @@
 import { TypeOrmModule } from "@nestjs/typeorm";//npm install --save @nestjs/typeorm typeorm mysql
 import { ConfigModule } from "@nestjs/config";//npm i --save @nestjs/config
 import { ConfigModuleOptions } from '@nestjs/config/dist/interfaces';
-import  ip from 'ip';//npm i -D @types/ip   npm i --save ip
+import  ip from 'ip';
+import { Logger } from '@app/logger';
+//npm i -D @types/ip   npm i --save ip
 
+// 当前ip
+// inet4 - IPv4
+// inet6 - IPv6
+// inet  - 系统默认，一般是IPv4
 const isHome = /^192.168.31./.test(ip.address());
-console.log('当前ip:',ip.address(),isHome?'是线上环境':'是线下环境');
+const logger = new Logger('logs')
+logger.log(`inet addr ${ip.address()}`,isHome?'production':'development')
+
 
 /**
  * 配置环境模块初始化
