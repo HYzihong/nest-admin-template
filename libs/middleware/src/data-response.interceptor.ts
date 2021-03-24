@@ -20,6 +20,7 @@ export class DataResponseInterceptor<T> implements NestInterceptor<T, Response<T
   constructor(private readonly logger: Logger) {}
 
   intercept(context: ExecutionContext, next: CallHandler): Observable<Response<T>> {
+    
     const { logger } = this;
     const ctx = context.switchToHttp();
     const req = ctx.getRequest();
@@ -32,7 +33,11 @@ export class DataResponseInterceptor<T> implements NestInterceptor<T, Response<T
     logger.log(url, `${ip} ${method}`);
     user?.username && logger.log(user.username, '用户名');
     Object.keys(body).length && logger.log(body, '请求参数');
-
+    
+    if(req.path === '/status'){
+      
+      return next.handle()
+    }
     return next.handle().pipe(
       map((data) => ({ code: res.statusCode, data })),
       tap((res) => {

@@ -2,8 +2,14 @@ import { TypeOrmModule } from "@nestjs/typeorm";//npm install --save @nestjs/typ
 import { ConfigModule } from "@nestjs/config";//npm i --save @nestjs/config
 import { ConfigModuleOptions } from '@nestjs/config/dist/interfaces';
 import  ip from 'ip';
-import { Logger } from '@app/logger';
 //npm i -D @types/ip   npm i --save ip
+import { Logger } from '@app/logger';
+import { StatusMonitorModule } from "nest-status-monitor";
+import { MonitoringConfig } from "./apps/monitoringConfig";
+// npm install nest-status-monitor @nestjs/websockets @nestjs/platform-socket.io --save  安装后最好再次进行yarn | npm i 防止出现找不到模块
+//  npm i --save-dev @types/socket.io
+// import { Cron, CronExpression } from '@nestjs/schedule';
+// import path from 'path';
 
 // 当前ip
 // inet4 - IPv4
@@ -24,8 +30,8 @@ export const configModule = (path: string, options?: ConfigModuleOptions) =>
   });
 
 
-/**
- * 数据库模块初始化
+/*
+  数据库模块初始化
  */
 export const typeOrmModule = () =>
   TypeOrmModule.forRootAsync({
@@ -41,3 +47,22 @@ export const typeOrmModule = () =>
     }),
   });
 
+  /*
+    服务器监控
+  */
+  export const statusMonitor = ()=> StatusMonitorModule.setUp(MonitoringConfig)
+
+  
+// TODO 数据库定时备份
+// export class Crontab {
+//
+//   @Cron(CronExpression.EVERY_DAY_AT_3AM)
+//   dumpDatabase(){
+//     if(!isHome){// 仅仅在生产环境下选择备份
+//       let filepath = path.join(__dirname,'./')
+//       cp.exec(`sh ${filepath}`,()=>{
+//         console.log('dumpDatabase',err,res);
+//       })
+//     }
+//   }
+// }

@@ -9,7 +9,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   // 全局路由前缀 接口请求前缀
-  app.setGlobalPrefix('api');
+  // app.setGlobalPrefix('api');
 
   // 安全防御中间件 npm i --save helmet
   // app.use(helmet());
@@ -36,12 +36,16 @@ async function bootstrap() {
   SwaggerModule.setup('swagger', app, document);
 
   // console.log(process.env)
-  await app.listen(3000);
-  console.log(`
-    Starting development server at http://localhost:${process.env.SERVE_PORT}}/
-    ${process.env.SWAGGER_TITLE} Swagger at http://localhost:3000/${process.env.SWAGGER_PATH}
-    Quit the server with CONTROL-C.
+
+  await app.listen(process.env.SERVE_PORT,()=>{
+    console.log(`
+      Starting development server at   http://localhost:/${process.env.SERVE_PORT}
+      ${process.env.SWAGGER_TITLE} Swagger at   http://localhost:${process.env.SERVE_PORT}/${process.env.SWAGGER_PATH}
+      Nest Monitoring Page at   http://localhost:3000/status
+      Quit the server with CONTROL-C.
   `);
+  });
+  
 
 }
 bootstrap();

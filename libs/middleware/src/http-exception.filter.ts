@@ -12,8 +12,8 @@ export class HttpExceptionFilter<T> implements ExceptionFilter {
   constructor(private readonly logger: Logger) {}
 
   catch(exception: T, host: ArgumentsHost) {
-    console.log(1,exception)
-    console.log(2,host)
+    // console.log(1,exception)
+    // console.log(2,host)
     const { logger } = this;
     const ctx = host.switchToHttp();
     const response = ctx.getResponse<Response>();
